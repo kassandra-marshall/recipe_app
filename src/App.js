@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import {Routes, Route, Link} from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import BuildRecipe from './Components/BuildRecipe';
+
 import './App.css';
+import BrowseRecipes from './Components/BrowseRecipes';
+import ViewRecipe from './Components/ViewRecipe';
 
 function App() {
+  const { id } = useParams()
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Recipe Guide</h1>
       </header>
+      <nav>
+        <Link to='/'>Home</Link>
+        <Link to='/build-recipe'>Build Recipe</Link>
+        <Link to='/browse-recipes'>Browse Recipes</Link>
+        <Link to='/grocery-list'>Grocery List</Link>
+        <Link to='/unit-conversions'>Unit Conversions</Link>
+        <Link to='/saved-recipes'>Saved Recipes</Link>
+        <Link to='/about'>About</Link>
+      </nav>
+    <Routes>
+      {/* Sprint 7 Module 1 Movies App */}
+      <Route path='/build-recipe' element={<BuildRecipe />} />
+      <Route path='/browse-recipes/*' element={<BrowseRecipes />} />
+      {/* <Route path=":id" element={<ViewRecipe recipe_id={id}/>}/> */}
+      
+    </Routes>
     </div>
+
   );
 }
 
