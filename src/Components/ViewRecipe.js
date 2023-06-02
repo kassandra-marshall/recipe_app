@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 
 import axios from "axios";
 
-function ViewRecipe(props) {
-    const { recipe_id } = props 
+function ViewRecipe(recipe_id) { 
+    console.log(recipe_id);
+    // const {recipeId} = recipe_id
     const [recipe, setRecipe] = useState({
         recipe_name: '',
         ingredients: '',
@@ -12,7 +13,6 @@ function ViewRecipe(props) {
     })
     useEffect(() => {
         async function getRequest () {
-            console.log(recipe_id)
             await axios.get(`http://localhost:9000/api/recipes/${recipe_id}`)
             .then(res => {
                 console.log(res.data)
