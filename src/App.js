@@ -1,13 +1,13 @@
 import {Routes, Route, Link} from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import BuildRecipe from './Components/BuildRecipe';
-
 import './App.css';
 import BrowseRecipes from './Components/BrowseRecipes';
 import ViewRecipe from './Components/ViewRecipe';
 
 function App() {
   const { id } = useParams()
+
   return (
     <div className="App">
       <header className="App-header">
@@ -23,15 +23,11 @@ function App() {
         <Link to='/about'>About</Link>
       </nav>
     <Routes>
-      {/* Sprint 7 Module 1 Movies App */}
-      <Route path='/build-recipe' element={<BuildRecipe />} />
-      <Route path='/browse-recipes/*' element={<BrowseRecipes />} />
-      {/* <Route path=":id" element={<ViewRecipe recipe_id={id}/>}/> */}
-      
+      <Route path="/build-recipe" element={<BuildRecipe />} />
+      <Route path="/browse-recipes/*" element={<BrowseRecipes />} />
+      <Route path="/browse-recipes/:id" element={<ViewRecipe />}/>
     </Routes>
     </div>
-
   );
 }
-
 export default App;
