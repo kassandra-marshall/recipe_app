@@ -6,7 +6,8 @@ import BrowseRecipes from "./Components/BrowseRecipes";
 import ViewRecipe from "./Components/ViewRecipe";
 
 function App() {
-  const { id } = useParams();
+  // const params = useParams();
+  // console.log(params);
 
   return (
     <div className="App">
@@ -24,8 +25,8 @@ function App() {
       </nav>
     <Routes>
       <Route path="/build-recipe" element={<BuildRecipe />} />
+      <Route exact path="/browse-recipes/:id" element={<ViewRecipe />} />
       <Route path="/browse-recipes/*" element={<BrowseRecipes />} />
-      <Route path="/browse-recipes/:id" element={<ViewRecipe />} />
     </Routes>
     </div>
   );
