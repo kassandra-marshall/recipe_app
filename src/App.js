@@ -1,13 +1,11 @@
 import { Routes, Route, Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import BuildRecipe from "./Components/BuildRecipe";
 import "./App.css";
 import BrowseRecipes from "./Components/BrowseRecipes";
 import ViewRecipe from "./Components/ViewRecipe";
+import Home from "./Components/Home";
 
 function App() {
-  // const params = useParams();
-  // console.log(params);
 
   return (
     <div className="App">
@@ -24,6 +22,7 @@ function App() {
         <Link to="/about">About</Link>
       </nav>
     <Routes>
+      <Route exact path="/" element={<Home />} />
       <Route path="/build-recipe" element={<BuildRecipe />} />
       <Route exact path="/browse-recipes/:id" element={<ViewRecipe />} />
       <Route path="/browse-recipes/*" element={<BrowseRecipes />} />

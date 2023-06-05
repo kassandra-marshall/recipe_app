@@ -1,4 +1,4 @@
-import { GET_RECIPE, GET_RECIPE_ID } from "../actionTypes";
+import { CREATE_NEW_RECIPE, GET_RECIPE, GET_RECIPE_ID } from "../actionTypes";
 
 export const getRecipeId = (recipe_id) => {
     return {
@@ -16,6 +16,17 @@ export const getRecipe = (recipe) => {
             recipe_name: recipe.recipe_name,
             ingredients: recipe.ingredients,
             instructions: recipe.instructions,
+        }
+    }
+}
+
+export const createRecipe = (recipe) => {
+    return {
+        type: CREATE_NEW_RECIPE,
+        payload: {
+            recipe_name: recipe.recipe_name,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions
         }
     }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Routes, Route, useNavigate, Link, useParams } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { getRecipeId } from "../state/actionCreators";
 import ViewRecipe from "./ViewRecipe";
@@ -25,21 +25,15 @@ function BrowseRecipes(props) {
     console.log(typeof recipeId)
     let path = `/browse-recipes/${recipeId}`;
     navigate(path);
-    // let arr = path.split('/')
-    // let pathId = arr[arr.length - 1];
-    // let pathIdNum = parseInt(pathId)
-    // props.getRecipeId(pathIdNum)
-
+    
   };
-console.log(props.recipe_id)
+
   return (
     <div>
       <h2>Browse Recipes</h2>
       <ul>
         {recipes.map(recipe => (
           <div key={recipe.recipe_id}>
-            {/* <Link to={`/browse-recipes/${recipe.recipe_id}`}>
-            </Link> */}
             <li>{recipe.recipe_name}</li>
 
             <p>Ingredients: {recipe.ingredients}</p>
@@ -63,7 +57,7 @@ console.log(props.recipe_id)
 
 const mapStateToProps = state => {
     return ({
-        recipe_id: state.recipe_id
+        recipe_id: state.existingRecipeReducer.recipe_id
     })
 }
 

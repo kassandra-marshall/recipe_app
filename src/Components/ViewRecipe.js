@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect } from "react";
 
 import axios from "axios";
 import { connect } from "react-redux";
@@ -45,10 +45,10 @@ function ViewRecipe(props) {
 
 const mapStateToProps = state => {
     return ({
-        recipe_id: state.recipe_id,
-        recipe_name: state.recipe_name,
-        ingredients: state.ingredients,
-        instructions: state.instructions,
+        recipe_id: state.existingRecipeReducer.recipe_id,
+        recipe_name: state.existingRecipeReducer.recipe_name,
+        ingredients: state.existingRecipeReducer.ingredients,
+        instructions: state.existingRecipeReducer.instructions,
     })
 }
 
