@@ -1,12 +1,18 @@
-import { CREATE_NEW_RECIPE } from "../actionTypes";
+import { 
+    CREATE_NEW_RECIPE, 
+    SAVE_INGREDIENT, 
+    SAVE_INSTRUCTION_NUMBER, 
+    SAVE_INSTRUCTION_VALUE, 
+    SAVE_RECIPE_NAME 
+} from "../actionTypes";
 
 export const initialState = {
     recipe_name: '',
-    ingredients: '',
-    instructions: [
-        {instruction_number: []},
-        {instruction_value: []}
-    ]
+    ingredients: [],
+    instructions: {
+        instruction_number: [],
+        instruction_value: []
+    }
 }
 
 export default function createNewRecipe (state = initialState, action) {
@@ -16,10 +22,39 @@ export default function createNewRecipe (state = initialState, action) {
                 ...state,
                 recipe_name: action.payload.recipe_name,
                 ingredients: action.payload.ingredients,
-                instructions: [
-                    {instruction_number: action.payload.instructions.instruction_number},
-                    {instruction_value: action.payload.instructions.instruction_value}
-                ]
+                instructions: {
+                    instruction_number: action.payload.instructions.instruction_number,
+                    instruction_value: action.payload.instructions.instruction_value
+                }
+            }
+        }
+        case SAVE_RECIPE_NAME: {
+            return {
+                ...state,
+                recipe_name: action.payload
+            }
+        }
+        case SAVE_INGREDIENT: {
+            return {
+                ...state,
+                ingredients: action.payload
+            }
+        }
+        case SAVE_INSTRUCTION_VALUE: {
+            return {
+                ...state,
+                instructions: {
+                    instruction_value: action.payload
+                }
+            }
+        }
+        case SAVE_INSTRUCTION_NUMBER: {
+            console.log(state.instructions.instruction_number, action.payload)
+            return {
+                ...state,
+                instructions: {
+                    instruction_number: action.payload
+                }
             }
         }
         default: {

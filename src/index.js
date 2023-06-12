@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { applyMiddleware, legacy_createStore as createStore } from 'redux';
+import { applyMiddleware, legacy_createStore as createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
@@ -22,7 +22,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const persistedReducer=persistReducer (persistConfig, reducer)
 
-const store = createStore(persistedReducer, applyMiddleware());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(persistedReducer, composeEnhancers(applyMiddleware()));
 
 
 const Persistor = persistStore(store)

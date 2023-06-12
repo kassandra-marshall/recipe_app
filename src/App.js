@@ -4,8 +4,19 @@ import "./App.css";
 import BrowseRecipes from "./Components/BrowseRecipes";
 import ViewRecipe from "./Components/ViewRecipe";
 import Home from "./Components/Home";
+import { RenderRecipe } from "./Components/BuildRecipe"
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  console.log(props);
+  const recipe = {
+    recipe_name: props.recipe_name,
+    ingredients: props.ingredients,
+    instructions: {
+      instruction_number: props.instruction_number,
+      instruction_value: props.instruction_value
+    }
+  }
 
   return (
     <div className="App">
@@ -27,7 +38,18 @@ function App() {
       <Route exact path="/browse-recipes/:id" element={<ViewRecipe />} />
       <Route path="/browse-recipes/*" element={<BrowseRecipes />} />
     </Routes>
+    <RenderRecipe recipe={recipe}/>
     </div>
   );
 }
-export default App;
+
+const mapStateToProps = state => {
+  return {
+    recipe_name: state.newRecipeReducer.recipe_name,
+    ingredients: state.newRecipeReducer.ingredients,
+    instruction_number: state.newRecipeReducer.instructions.instruction_number,
+    instruction_value: state.newRecipeReducer.instructions.instruction_value
+  }
+}
+
+export default connect(mapStateToProps)(App);
