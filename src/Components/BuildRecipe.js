@@ -41,10 +41,7 @@ export function RenderRecipe(props) {
 
 function BuildRecipe(props) {
   const url = 'http://localhost:9000/api/recipes';
-  let instruction = {
-    instruction_number: instructionsN,
-    instruction_value: instructionsV
-  }
+  
   const [ingredients, setIngredients] = useState([])
   const [instructionsV, setInstructionsV] = useState([])
   const [instructionsN, setInstructionsN] = useState([])
@@ -54,6 +51,10 @@ function BuildRecipe(props) {
     instruction_number: [],
     instruction_value: []
   })
+  let instruction = {
+    instruction_number: instructionsN,
+    instruction_value: instructionsV
+  }
   
   useEffect(() => {
     props.saveIngredient(ingredients);
