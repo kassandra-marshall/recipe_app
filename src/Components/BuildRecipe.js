@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { createRecipe, saveIngredient, saveInstructionNumber, saveInstructionValue, saveRecipeName } from "../state/actionCreators";
+import { createRecipe, saveIngredient, saveInstruction, saveRecipeName } from "../state/actionCreators";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -16,22 +16,22 @@ export function RenderRecipe(props) {
       {recipe.ingredients ? recipe.ingredients.map(ingredient => {
         return(
           <ul>
-            <li>{ingredient}</li>
+            <li key={ingredient.indexOf()}>{ingredient}</li>
           </ul> 
         )
       }) : null}
       <p>Instructions: </p>
       {recipe.instructions.instruction_number ? recipe.instructions.instruction_number.map(number => {
         return (
-          <ul>
-            <li>{number}</li>
+          <ul className="instructionNumber">
+            <li key={number.indexOf()}>{number}</li>
           </ul>
         )
       }) : null}
       {recipe.instructions.instruction_value ? recipe.instructions.instruction_value.map(value => {
         return (
-          <ul>
-            <li>{value}</li>
+          <ul className="instructionValue">
+            <li key={value.indexOf()}>{value}</li>
           </ul>
         )
       }) : null}
@@ -41,6 +41,10 @@ export function RenderRecipe(props) {
 
 function BuildRecipe(props) {
   const url = 'http://localhost:9000/api/recipes';
+  let instruction = {
+    instruction_number: instructionsN,
+    instruction_value: instructionsV
+  }
   const [ingredients, setIngredients] = useState([])
   const [instructionsV, setInstructionsV] = useState([])
   const [instructionsN, setInstructionsN] = useState([])
@@ -51,6 +55,14 @@ function BuildRecipe(props) {
     instruction_value: []
   })
   
+  useEffect(() => {
+    props.saveIngredient(ingredients);
+  }, [ingredients.length])
+
+  useEffect(() => {
+    props.saveInstruction(instruction)
+  }, [instructionsN, instructionsV])
+
   const viewRecipeButton = () => {
     // axios.post(url)
     //   .then(res => console.log(res))
@@ -63,9 +75,11 @@ function BuildRecipe(props) {
     console.log(data);
     console.log(ingredients.toString());
   }
-  useEffect(() => {
-    props.saveIngredient(ingredients);
-  }, [ingredients.length])
+  
+  const editRecipe = (e) => {
+    e.preventDefault();
+
+  }
   
   const submitIngredient = (e) => {
     e.preventDefault();
@@ -73,27 +87,12 @@ function BuildRecipe(props) {
     props.saveIngredient(ingredients);
   }
 
-  useEffect(() => {
-    props.saveInstructionNumber(instructionsN);
-  }, [instructionsN])
-
-  useEffect(() => {
-    props.saveInstructionValue(instructionsV);
-  }, [instructionsV])
-
   const submitInstruction = (e) => {
     e.preventDefault();
     console.log('data', data);
     setInstructionsN(arr => [...arr, data.instruction_number])
-    console.log('instructionsNumber', instructionsN);
     setInstructionsV(arr => [...arr, data.instruction_value])
-    console.log('instructionsValue', instructionsV);
-    props.saveInstructionNumber(instructionsN);
-    props.saveInstructionValue(instructionsV);
-    // props.saveInstructionNumber(data.instruction_number);
-    // props.saveInstructionValue(data.instruction_value);
-    console.log('props.instructions', props.instructions);
-
+    props.saveInstruction(instruction)
   }
 
   const handleChange = (e) => {
@@ -104,15 +103,6 @@ function BuildRecipe(props) {
     e.preventDefault();
     props.saveRecipeName(data.recipe_name)
   }
-
-  // const editNameClick = (e) => {
-  //   e.preventDefault();
-  //   return (
-  //     <div>
-  //       <input type="text" name="recipe_name" onChange={e => {handleChange(e)}}/>
-  //     </div>
-  //   )
-  // }
 
     return (
       <div>
@@ -132,6 +122,7 @@ function BuildRecipe(props) {
             <label>Step Instruction</label>
             <input type="text" name="instruction_value" onChange={e => {handleChange(e)}}/>
             <button onClick={submitInstruction}>Submit Instruction</button>
+            <button>Edit Recipe</button>
             <button>Submit Recipe</button>
           </form>
           {/* <form onSubmit={e => {handleSubmit(e)}}>
@@ -165,4 +156,4 @@ function BuildRecipe(props) {
     }
   }
 
-  export default connect(mapStateToProps, {createRecipe, saveRecipeName, saveIngredient, saveInstructionNumber, saveInstructionValue})(BuildRecipe);
+  export default connect(mapStateToProps, {createRecipe, saveRecipeName, saveIngredient, saveInstruction})(BuildRecipe);

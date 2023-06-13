@@ -45,16 +45,12 @@ export const saveIngredient = (ingredient) => {
     }
 }
 
-export const saveInstructionValue = (instruction_value) => {
+export const saveInstruction = (instruction) => {
     return {
-        type: SAVE_INSTRUCTION_VALUE,
-        payload: instruction_value
-    }
-}
-
-export const saveInstructionNumber = (instruction_number) => {
-    return {
-        type: SAVE_INSTRUCTION_NUMBER,
-        payload: instruction_number
+        type: SAVE_INSTRUCTION,
+        payload: {
+            instruction_number: instruction.instruction_number,
+            instruction_value: instruction.instruction_value
+        }
     }
 }

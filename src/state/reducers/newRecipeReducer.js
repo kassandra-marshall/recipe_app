@@ -1,6 +1,7 @@
 import { 
     CREATE_NEW_RECIPE, 
     SAVE_INGREDIENT, 
+    SAVE_INSTRUCTION, 
     SAVE_INSTRUCTION_NUMBER, 
     SAVE_INSTRUCTION_VALUE, 
     SAVE_RECIPE_NAME 
@@ -40,20 +41,12 @@ export default function createNewRecipe (state = initialState, action) {
                 ingredients: action.payload
             }
         }
-        case SAVE_INSTRUCTION_VALUE: {
+        case SAVE_INSTRUCTION: {
             return {
                 ...state,
                 instructions: {
-                    instruction_value: action.payload
-                }
-            }
-        }
-        case SAVE_INSTRUCTION_NUMBER: {
-            console.log(state.instructions.instruction_number, action.payload)
-            return {
-                ...state,
-                instructions: {
-                    instruction_number: action.payload
+                    instruction_number: action.payload.instruction_number,
+                    instruction_value: action.payload.instruction_value
                 }
             }
         }
